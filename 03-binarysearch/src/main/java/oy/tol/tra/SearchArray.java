@@ -21,12 +21,14 @@ public class SearchArray {
     * @return The index of the number in the array, -1 if not found.
     */
    public static int slowLinearSearch(Integer aValue, Integer [] fromArray, int fromIndex, int toIndex) {
-      for (int index = fromIndex; index < toIndex; index++) {
+      for (int index = fromIndex; index <= toIndex; index++) {
          if (fromArray[index].equals(aValue)) {
             return index;
          }
       }
+      
       return -1;
+      
    }
 
    /**
@@ -38,12 +40,13 @@ public class SearchArray {
     * @return The index of the number in the array, -1 if not found.
     */
     public static int slowLinearSearch(String aValue, String [] fromArray, int fromIndex, int toIndex) {
-      for (int index = fromIndex; index < toIndex; index++) {
+      for (int index = fromIndex; index <= toIndex; index++) {
          if (fromArray[index].equals(aValue)) {
             return index;
          }
       }
+      
       return -1;
    }
-
+   
 }

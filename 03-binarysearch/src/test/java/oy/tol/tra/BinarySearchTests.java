@@ -22,7 +22,7 @@ public class BinarySearchTests {
     @DisplayName("Very simple binary search tests for correctness")
     void simpleSearchTest() {
         Integer [] array = {1,2,3,4,5,6,7,8,9,10};
-        int index = Algorithms.binarySearch(4, array, 0, array.length - 1);
+        int index =Algorithms.binarySearch(4, array, 0, array.length - 1);
         assertEquals(3, index, () -> "Number four must be in the index 3 in this case.");
         index = Algorithms.binarySearch(1, array, 0, array.length - 1);
         assertEquals(0, index, () -> "Number one must be in the index 0 in this case.");
@@ -116,7 +116,8 @@ public class BinarySearchTests {
                 int linearIndex = SearchArray.slowLinearSearch(array[toFind], array, 0, array.length - 1);
                 assertTrue(linearIndex >= 0, () -> "Binary search could not find the element to search");
                 linearDuration += System.nanoTime() - start;
-                System.out.println("Index of " + array[toFind] + " is: " + linearIndex);    
+                System.out.println("Index of " + array[toFind] + " is: " + linearIndex); 
+                 
             }
             linearDuration /= NUMBERS_TO_SEARCH;
 
@@ -124,6 +125,7 @@ public class BinarySearchTests {
             start = System.nanoTime();
             // You must have implemented this as instructed in Exercise 01-arrays!
             Algorithms.sort(array);
+           
             System.out.println("Sorting the array took " + (System.nanoTime() - start) + " ns");
 
             System.out.println("-- Starting the test with binary search --");
@@ -139,6 +141,8 @@ public class BinarySearchTests {
                 System.out.println("Index of " + array[toFind] + " is: " + binaryIndex);    
                 int libraryIndex = Arrays.binarySearch(array, array[toFind], Comparator.naturalOrder());
                 assertEquals(libraryIndex, binaryIndex, () -> "Index is different from real index");
+               
+                
             }
             binaryDuration /= NUMBERS_TO_SEARCH;
             System.out.println("----------------------------------------------");
