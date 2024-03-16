@@ -1,5 +1,9 @@
 package oy.tol.tra;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
     // This is the BST implementation, KeyValueHashTable has the hash table
@@ -8,16 +12,16 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
     private TreeNode<K, V> root;
     private int count = 0;
     private int maxTreeDepth = 0;
-
+    
     @Override
     public Type getType() {
-        return Type.NONE;
+        return Type.BST;
     }
 
     @Override
     public int size() {
         // TODO: Implement this
-        return 0;
+        return count;
     }
 
     /**
@@ -46,38 +50,50 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
         return toReturn;
     }
 
-    @Override
     public boolean add(K key, V value) throws IllegalArgumentException, OutOfMemoryError {
         // TODO: Implement this
         // Remember null check.
-        // If root is null, should go there.
-        
-            // update the root node. But it may have children
-            // so do not just replace it with this new node but set
-            // the keys and values for the already existing root.
-            
-        return false;
+        // If root is null, should go there.e
+        if(key==null||value==null)
+        {
+            throw new IllegalArgumentException("This is a custom NullPointerException message");
+        }
+        if(root==null)
+        {
+            root=new TreeNode<K,V>(key, value);
+            count++;
+            return true;
+        }
+        else{
+        int res=root.insert(key,value,key.hashCode());
+        if( res==0)
+        {
+            return false;
+        }
+             else{
+                count++;
+                return true;
+             }
+            }
     }
-
-    @Override
-    public V find(K key) throws IllegalArgumentException {
-        // TODO: Implement this. //Think about this
-        return (null);
-    }
-
+    
+   
     @Override
     public void ensureCapacity(int size) throws OutOfMemoryError {
         // Nothing to do here. Trees need no capacity.
     }
+  
+public Pair<K, V>[] toSortedArray() {
+    TreeToArrayVisitor<K, V> visitor = new TreeToArrayVisitor<>(count);
+    root.accept(visitor);
+    Pair<K, V>[] sorted = visitor.getArray();
+    Algorithms.mergeSort(sorted);
+    return sorted;
+}
 
-    @Override
-    public Pair<K, V>[] toSortedArray() {
-        TreeToArrayVisitor<K, V> visitor = new TreeToArrayVisitor<>(count);
-        root.accept(visitor);
-        Pair<K, V>[] sorted = visitor.getArray();
-        Algorithms.fastSort(sorted);
-        return sorted;
-    }
+public V find(K key) throws IllegalArgumentException {
+   return root.find(key,key.hashCode());
+}
 
     @Override
     public void compress() throws OutOfMemoryError {
