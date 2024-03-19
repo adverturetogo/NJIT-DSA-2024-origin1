@@ -39,8 +39,7 @@ public class Person implements Comparable<Person> {
      */
     @Override
     public int hashCode() {
-        int hashvalue=Math.abs((firstName+""+lastName).hashCode());
-        return hashvalue;
+        return getFullName().hashCode();
     }
 
     @Override
@@ -50,6 +49,7 @@ public class Person implements Comparable<Person> {
         }
         return false;
     }
+   
 
     /**
      * Compares two persons, this and the other one.

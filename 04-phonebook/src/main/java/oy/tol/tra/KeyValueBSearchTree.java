@@ -54,6 +54,7 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
         // TODO: Implement this
         // Remember null check.
         // If root is null, should go there.e
+
         if(key==null||value==null)
         {
             throw new IllegalArgumentException("This is a custom NullPointerException message");
@@ -65,16 +66,10 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
             return true;
         }
         else{
-        int res=root.insert(key,value,key.hashCode());
-        if( res==0)
-        {
-            return false;
-        }
-             else{
-                count++;
-                return true;
-             }
+            count+=root.insert(key,value,key.hashCode());
+            return true;
             }
+            
     }
     
    
@@ -101,4 +96,20 @@ public V find(K key) throws IllegalArgumentException {
         // structures.
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

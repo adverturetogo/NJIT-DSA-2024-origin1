@@ -48,38 +48,7 @@ public  class Algorithms{
     }
    
     
-    public static void Quicksort1(Integer[]arr,int left,int right)
-    {
-        if(left>right)
-        {
-            return;
-        }
-       int temp=arr[left];
-       int i=left;
-       int j=right;
-       while(i<j)
-       {
-        while(arr[j].compareTo(temp)>=0&&i<j)
-        {
-           j--;
-        }
-          
-        while(arr[i].compareTo(temp)<=0&&i<j)
-        {
-            i++;
-        }
-        if(i<j)
-        {
-        int akk=arr[j];
-        arr[j]=arr[i];
-        arr[i]=akk;
-        }
-       }
-       arr[left]=arr[i];
-       arr[i]=temp;
-       Quicksort1(arr,left,j-1);
-       Quicksort1(arr,j+1,right);
-    }
+    
     
 
 
