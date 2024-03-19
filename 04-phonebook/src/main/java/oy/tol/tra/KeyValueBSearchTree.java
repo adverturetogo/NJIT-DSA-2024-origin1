@@ -9,10 +9,10 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
     // This is the BST implementation, KeyValueHashTable has the hash table
     // implementation
 
-    private TreeNode<K, V> root;
+    private TreeNode<K, V> root=null;
     private int count = 0;
     private int maxTreeDepth = 0;
-    
+
     @Override
     public Type getType() {
         return Type.BST;
@@ -40,13 +40,14 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
      */
     @Override
     public String getStatus() {
-        String toReturn = "Tree has max depth of " + maxTreeDepth + ".\n";
-        toReturn += "Longest collision chain in a tree node is " + TreeNode.longestCollisionChain + "\n";
+        StringBuilder toReturn1=new StringBuilder("Tree has max depth of " + maxTreeDepth + ".\n");
+        toReturn1.append("Longest collision chain in a tree node is " + TreeNode.longestCollisionChain + "\n");
         TreeAnalyzerVisitor<K, V> visitor = new TreeAnalyzerVisitor<>();
         root.accept(visitor);
-        toReturn += "Min path height to bottom: " + visitor.minHeight + "\n";
-        toReturn += "Max path height to bottom: " + visitor.maxHeight + "\n";
-        toReturn += "Ideal height if balanced: " + Math.ceil(Math.log(count)) + "\n";
+        toReturn1.append("Min path height to bottom: " + visitor.minHeight + "\n");
+        toReturn1.append("Max path height to bottom: " + visitor.maxHeight + "\n");
+        toReturn1.append("Ideal height if balanced: " + Math.ceil(Math.log(count)) + "\n");
+        String toReturn = toReturn1.toString();
         return toReturn;
     }
 
@@ -65,13 +66,11 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
             count++;
             return true;
         }
-        else{
-            count+=root.insert(key,value,key.hashCode());
-            return true;
-            }
-            
-    }
-    
+        else {
+           count+= root.insert(key,value,key.hashCode());
+           return true;
+        }
+        }
    
     @Override
     public void ensureCapacity(int size) throws OutOfMemoryError {
@@ -86,9 +85,11 @@ public Pair<K, V>[] toSortedArray() {
     return sorted;
 }
 
-public V find(K key) throws IllegalArgumentException {
-   return root.find(key,key.hashCode());
+public V find(K key) {
+    return root.find(key, key.hashCode());
 }
+
+
 
     @Override
     public void compress() throws OutOfMemoryError {
