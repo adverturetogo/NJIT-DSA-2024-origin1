@@ -50,4 +50,37 @@ public  class Algorithms{
             right--;
      }
 }
-  }
+public static  <T extends Comparable<T>> void quickSort(T[]arr)
+    {
+        QuickSort(arr, 0, arr.length-1);
+    }
+private static <T extends Comparable<T>>  void QuickSort(T[] arr, int left, int right) {
+    if (left < right) {
+        int partitionIndex = partition(arr, left, right);
+        QuickSort(arr, left, partitionIndex - 1);
+        QuickSort(arr, partitionIndex + 1, right);
+    }
+}
+
+private static <T extends Comparable<T>>  int partition(T[] arr, int left, int right) {
+    T pivot = arr[right];
+    int i = left - 1;
+
+    for (int j = left; j < right; j++) {
+        if  (arr[j].compareTo(pivot) <= 0) {
+            i++;
+            swap(arr, i, j);
+        }
+    }
+
+    swap(arr, i + 1, right);
+    return i + 1;
+}
+
+private static <T extends Comparable<T>>  void swap(T[] arr, int i, int j) {
+    T temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+}
+  
