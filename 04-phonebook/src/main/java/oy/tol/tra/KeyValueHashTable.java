@@ -1,7 +1,5 @@
 package oy.tol.tra;
 
-import java.util.Arrays;
-
 public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
     // This should implement a hash table.
@@ -83,20 +81,20 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         if (((double)count * (1.0 + LOAD_FACTOR)) >= values.length) {
             reallocate((int)((double)(values.length) * (1.0 / LOAD_FACTOR)));
         }
-        
-        if(values[Math.abs(key.hashCode())%values.length]==null)
+        int keyhashcode=Math.abs(key.hashCode())%values.length;
+        if(values[keyhashcode]==null)
         {
-             values[Math.abs(key.hashCode())%values.length]=new Pair<K,V>(key, value);
+             values[keyhashcode]=new Pair<K,V>(key, value);
              count++;
         }
-        else if(values[Math.abs(key.hashCode())%values.length]!=null&&values[Math.abs(key.hashCode())%values.length].getKey().equals(key))
+        else if(values[keyhashcode]!=null&&values[keyhashcode].getKey().equals(key))
         {
-            values[Math.abs(key.hashCode())%values.length].setValue(value);
+            values[keyhashcode].setValue(value);
         }
         
-        else if(values[Math.abs(key.hashCode())%values.length]!=null&&!values[Math.abs(key.hashCode())%values.length].getKey().equals(key))
+        else if(values[keyhashcode]!=null&&!values[keyhashcode].getKey().equals(key))
         {
-            for(int i=Math.abs(key.hashCode())%values.length+1;i<values.length;i++)
+            for(int i=keyhashcode+1;i<values.length;i++)
             {
                if(values[i]==null)
                {
@@ -131,17 +129,18 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         {
             throw new IllegalArgumentException();
         }
-        if(values[Math.abs(key.hashCode())%values.length]==null)
+        int keyhashcodefind=Math.abs(key.hashCode())%values.length;
+        if(values[ keyhashcodefind]==null)
         {
             return null;
         }
          else
           {
-             if (key.equals(values[Math.abs(key.hashCode())%values.length].getKey())) {
-        return values[Math.abs(key.hashCode())%values.length].getValue();
+             if (key.equals(values[ keyhashcodefind].getKey())) {
+        return values[ keyhashcodefind].getValue();
     }
     else{
-        for(int i=Math.abs(key.hashCode())%values.length+1;i<values.length;i++)
+        for(int i= keyhashcodefind+1;i<values.length;i++)
         {
             if(values[i]==null){
                  return null;
@@ -170,7 +169,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
               sorted[newIndex++] = new Pair<>(values[index].getKey(), values[index].getValue());
            }
         }
-       Algorithms.mergeSort(sorted);
+       Algorithms.fastSort(sorted);
         
         return sorted;
       }

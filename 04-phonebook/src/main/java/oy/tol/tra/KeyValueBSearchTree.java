@@ -1,9 +1,5 @@
 package oy.tol.tra;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
     // This is the BST implementation, KeyValueHashTable has the hash table
@@ -81,16 +77,13 @@ public Pair<K, V>[] toSortedArray() {
     TreeToArrayVisitor<K, V> visitor = new TreeToArrayVisitor<>(count);
     root.accept(visitor);
     Pair<K, V>[] sorted = visitor.getArray();
-    Algorithms.mergeSort(sorted);
+    Algorithms.fastSort(sorted);
     return sorted;
 }
 
 public V find(K key) {
     return root.find(key, key.hashCode());
 }
-
-
-
     @Override
     public void compress() throws OutOfMemoryError {
         // Nothing to do here, since BST does not use extra space like array based

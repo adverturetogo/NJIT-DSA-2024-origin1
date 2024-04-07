@@ -50,7 +50,7 @@ public  class Algorithms{
             right--;
      }
 }
-public static  <T extends Comparable<T>> void quickSort(T[]arr)
+public static  <T extends Comparable<T>> void fastSort(T[]arr)
     {
         QuickSort(arr, 0, arr.length-1);
     }
